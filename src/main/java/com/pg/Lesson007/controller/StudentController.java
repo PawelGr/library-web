@@ -38,7 +38,7 @@ public class StudentController {
         return "addstudentform";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/student/add")
+    @PostMapping("/student/add")
     public String save(@Valid Student student, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -50,21 +50,21 @@ public class StudentController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/student/search")
+    @GetMapping("/student/search")
     public String search(@RequestParam("search") String word, Model model) {
         List<Student> listOfStudents = studentService.studentSearch(word);
         model.addAttribute("allstudents", listOfStudents);
         return "allstudents";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/student/delete")
+    @PostMapping("/student/delete")
     public String delete(@ModelAttribute("student") Student student) {
         System.out.println(student);
         studentService.deleteStudent(student);
         return "redirect:/allstudents";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/student/borrow/book/{studentId}/{bookId}")
+    @GetMapping("/student/borrow/book/{studentId}/{bookId}")
     public String borrowBook(@PathVariable("bookId") Integer bookId, @PathVariable("studentId") Integer studentId) {
 
         Student student = studentService.studentById(studentId);
@@ -74,7 +74,7 @@ public class StudentController {
         return "borrowsuccess";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/return/{bookId}")
+    @GetMapping("/book/return/{bookId}")
     public String returnBook(@PathVariable("bookId") Integer bookId, Integer studentId) {
 
         Book book = bookService.bookById(bookId);
