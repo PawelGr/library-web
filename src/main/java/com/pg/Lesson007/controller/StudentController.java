@@ -25,14 +25,14 @@ public class StudentController {
         this.bookService = bookService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/allstudents")
+    @GetMapping("/allstudents")
     public String list(Model model) {
         List<Student> listOfStudents = studentService.getAllStudents();
         model.addAttribute("allstudents", listOfStudents);
         return "allstudents";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/student/add/form")
+    @GetMapping("/student/add/form")
     public String form(Model model) {
         model.addAttribute("student", new Student());
         return "addstudentform";
