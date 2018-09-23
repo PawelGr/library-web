@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj książkę</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="localhost:2101"><b>Bibioteka</b></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/allstudents">Lista studentów</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/student/add/form">Dodaj studenta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/borrowedbooks">Lista wypożyczonych książek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/availeablebooks">Lista dostępnych książek</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+    </div>
+</div>
+<hr width="100%" align="left" />
+<h3>Formularz dodawania książki</h3>
+
+<form action="#" th:action="@{/book/add}" th:object="${book}" method="post">
+    <p>Title: <input type="text" th:field="*{title}" /></p>
+    <p>Author: <input type="text" th:field="*{author}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+<a class="nav-link" href="/allbooks">Wróć do listy wszystkich książek</a>
+</body>
+</html>

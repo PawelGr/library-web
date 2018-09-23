@@ -1,0 +1,6 @@
+.fieldError {
+    border: 1px solid red;
+}
+.fieldOk {
+    border: 1px solid green;
+}
