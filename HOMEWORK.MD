@@ -21,3 +21,4 @@
     - ilosc stron
     - okladka twarda/miekka (boolean checbox)
     - dorobienie walidacji, szczegolnie do ISBN       
+12. Dodanie annotacji Email do usera.
