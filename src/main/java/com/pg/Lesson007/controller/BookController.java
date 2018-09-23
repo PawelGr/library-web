@@ -1,9 +1,8 @@
 package com.pg.Lesson007.controller;
 
 import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.model.Student;
+import com.pg.Lesson007.model.User;
 import com.pg.Lesson007.service.BookService;
-import com.pg.Lesson007.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,7 +76,7 @@ public class BookController {
         List<Book> borrowedBooks = new ArrayList<>();
         for (int b = 0; b < listOfBooks.size(); b++) {
             Book temp = listOfBooks.get(b);
-            if (temp.getStudent() != null) {
+            if (temp.getUser() != null) {
                 borrowedBooks.add(temp);
                 model.addAttribute("borrowedbooks", borrowedBooks);
             }
@@ -91,7 +90,7 @@ public class BookController {
         List<Book> availeableBooks = new ArrayList<>();
         for (int b = 0; b < listOfBooks.size(); b++) {
             Book temp = listOfBooks.get(b);
-            if (temp.getStudent() == null) {
+            if (temp.getUser() == null) {
                 availeableBooks.add(temp);
                 model.addAttribute("availeablebooks", availeableBooks);
             }
@@ -108,11 +107,11 @@ public class BookController {
         List<Book> borrowedBooks = new ArrayList<>();
         for (int b = 0; b < listOfBooks.size(); b++) {
             Book tempBook = listOfBooks.get(b);
-            Student tempStudent = tempBook.getStudent();
+            User tempUser = tempBook.getUser();
             System.out.println(tempBook);
-            System.out.println(tempStudent);
-            System.out.println(tempStudent.getId());
-            if (tempStudent.getId() == studentId) {
+            System.out.println(tempUser);
+            System.out.println(tempUser.getId());
+            if (tempUser.getId() == studentId) {
                 borrowedBooks.add(tempBook);
                 model.addAttribute("borrowedbooks", borrowedBooks);
             }

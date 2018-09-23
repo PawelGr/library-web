@@ -28,7 +28,7 @@
                             <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/student/add/form">Dodaj studenta</a>
+                            <a class="nav-link" href="/user/add/form">Dodaj studenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
@@ -49,7 +49,7 @@
 <hr width="100%" align="left" />
 <h3>Formularz dodawania studenta</h3>
 
-<form action="#" th:action="@{/student/add}" th:object="${student}" method="post">
+<form action="#" th:action="@{/user/add}" th:object="${user}" method="post">
     <p>Name: <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')}? fieldError : fieldOk"  /></p>
     <ul>
         <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
@@ -62,6 +62,23 @@
     <ul>
         <li th:each="err : ${#fields.errors('course')}" th:text="${err}" />
     </ul>
+
+
+    <p>City: <input type="text" th:field="*{address.city}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"  /></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.city')}" th:text="${err}" />
+    </ul>
+
+    <p>Street: <input type="text" th:field="*{address.streetName}"  th:class="${#fields.hasErrors('course')}? fieldError: fieldOk" /></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.streetName')}" th:text="${err}" />
+    </ul>
+
+    <p>ZipCode: <input type="text" th:field="*{address.zipCode}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"  /></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.zipCode')}" th:text="${err}" />
+    </ul>
+
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 <a class="nav-link" href="/allstudents">Wróć do listy wszystkich studentów</a>

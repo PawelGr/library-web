@@ -20,6 +20,6 @@ public class Book {
     private String author;
 
     @ManyToOne
-    private Student student;
+    private User user;
 
 }

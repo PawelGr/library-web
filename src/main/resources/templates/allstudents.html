@@ -28,7 +28,7 @@
                             <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/student/add/form">Dodaj studenta</a>
+                            <a class="nav-link" href="/user/add/form">Dodaj studenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
@@ -53,27 +53,42 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Course</th>
-
+        <th>City</th>
+        <th>Street name</th>
+        <th>Zip code</th>
     </tr>
-    <tr th:each="student : ${allstudents}">
-        <td th:text="${student.id}">Id</td>
-        <td th:text="${student.name}">Name</td>
-        <td th:text="${student.surname}">Surname</td>
-        <td th:text="${student.course}">Course</td>
-        <td><form th:action="@{/student/delete}" th:object="${student}" method="post">
-            <input type="hidden" th:value="${student.id}" name="id" />
+    <tr th:each="user : ${allstudents}">
+        <td th:text="${user.id}">Id</td>
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.surname}">Surname</td>
+        <td th:text="${user.course}">Course</td>
+
+        <div th:if="${user.address != null}">
+            <td th:text="${user.address.city}">City</td>
+            <td th:text="${user.address.streetName}">Street name</td>
+            <td th:text="${user.address.zipCode}">Zip code</td>
+        </div>
+
+        <div th:if="${user.address == null}">
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </div>
+
+        <td><form th:action="@{/user/delete}" th:object="${user}" method="post">
+            <input type="hidden" th:value="${user.id}" name="id" />
             <button type="submit">Usuń</button>
         </form></td>
-        <td><a th:href="@{/availeablebooks/{studentId}(studentId=${student.id})}">Wybierz książkę</a></td>
+        <td><a th:href="@{/availeablebooks/{studentId}(studentId=${user.id})}">Wybierz książkę</a></td>
     </tr>
 </table>
 <hr width="20%" align="left" />
-<form th:object="${student}" th:action="@{student/search}" method="get">
+<form th:object="${user}" th:action="@{user/search}" method="get">
     <input type="text" name="search" id="search" placeholder="Wpisz słowo..." th:value="${search}"/>
     <input type="submit" value="Search"/>
 </form>
 <hr width="20%" align="left" />
-<a class="nav-link" href="student/add/form">Dodaj studenta</a>
+<a class="nav-link" href="user/add/form">Dodaj studenta</a>
 
 </body>
 </html>

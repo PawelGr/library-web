@@ -6,10 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Student {
+public class User {
 
     @Id
     @GeneratedValue
@@ -41,11 +39,13 @@ public class Student {
     @Length(min = 3, max = 10, message = "Długość pola min 3 znaki, max 10 znaków")
     private String course;
 
-//    @Digits(integer = 2, fraction = 0)
-//    @Min, @Max
-//    private int age;
+    private int age = 20;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Book> book;
+
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
 }

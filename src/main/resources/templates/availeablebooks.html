@@ -28,7 +28,7 @@
                             <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/student/add/form">Dodaj studenta</a>
+                            <a class="nav-link" href="/user/add/form">Dodaj studenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
@@ -59,7 +59,7 @@
         <td th:text="${book.id}">Id</td>
         <td th:text="${book.title}">Title</td>
         <td th:text="${book.author}">Author</td>
-        <td><a th:href="@{/student/borrow/book/{studentId}/{bookId}(studentId=${studentId},bookId=${book.id})}">Wypożycz</a></td>
+        <td><a th:href="@{/user/borrow/book/{studentId}/{bookId}(studentId=${studentId},bookId=${book.id})}">Wypożycz</a></td>
         <td>
     </tr>
 </table>

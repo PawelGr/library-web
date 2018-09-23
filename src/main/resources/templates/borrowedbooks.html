@@ -28,7 +28,7 @@
                             <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/student/add/form">Dodaj studenta</a>
+                            <a class="nav-link" href="/user/add/form">Dodaj studenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
@@ -59,7 +59,7 @@
         <td th:text="${book.id}">Id</td>
         <td th:text="${book.title}">Title</td>
         <td th:text="${book.author}">Author</td>
-        <td><span th:text="${book.student.name}"></span> <span th:text="${book.student.surname}"></span></td>
+        <td><span th:text="${book.user.name}"></span> <span th:text="${book.user.surname}"></span></td>
         <!-- <td> <form th:action="@{/book/return/{bookId}}" method="post" th:object="${book}">
         <input type="hidden" th:field="${book.id}"/>
         <button type="submit" value="Submit" class="btn btn-danger">Zwróć</button>
