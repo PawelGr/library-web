@@ -25,17 +25,17 @@ public class UserController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/allstudents")
+    @GetMapping("user/search/list")
     public String list(Model model) {
-        List<User> listOfUsers = userService.getAllStudents();
-        model.addAttribute("allstudents", listOfUsers);
-        return "allstudents";
+        List<User> listOfUsers = userService.list();
+        model.addAttribute("list", listOfUsers);
+        return "/user/search/list";
     }
 
     @GetMapping("/user/add/form")
     public String form(Model model) {
         model.addAttribute("user", new User());
-        return "addstudentform";
+        return "/user/add/form";
     }
 
     @PostMapping("/user/add")
@@ -43,46 +43,33 @@ public class UserController {
         System.out.println(user);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "addstudentform";
+            return "/user/add/form";
         } else {
-            userService.addStudent(user);
-            return "redirect:/allstudents";
+            userService.add(user);
+            return "redirect:/user/search/list";
         }
     }
 
-    @GetMapping("/user/search")
+    @GetMapping("/user/search/byword")
     public String search(@RequestParam("search") String word, Model model) {
-        List<User> listOfUsers = userService.studentSearch(word);
-        model.addAttribute("allstudents", listOfUsers);
-        return "allstudents";
+        List<User> listOfUsers = userService.searchByWord(word);
+        model.addAttribute("list", listOfUsers);
+        return "user/search/list";
     }
 
-    @PostMapping("/student/delete")
-    public String user(@ModelAttribute("student") User user) {
-        System.out.println(user);
-        userService.deleteStudent(user);
-        return "redirect:/allstudents";
+    @PostMapping("/user/delete")
+    public String user(@ModelAttribute("user") User user) {
+        userService.delete(user);
+        return "redirect:/user/search/list";
     }
 
-    @GetMapping("/user/borrow/book/{studentId}/{bookId}")
-    public String borrowBook(@PathVariable("bookId") Integer bookId, @PathVariable("studentId") Integer studentId) {
+    @GetMapping("/user/borrow/book/{userId}/{bookId}")
+    public String borrowBook(@PathVariable("bookId") Integer bookId, @PathVariable("userId") Integer userId) {
 
-        User user = userService.studentById(studentId);
-        Book book = bookService.bookById(bookId);
+        User user = userService.searchById(userId);
+        Book book = bookService.searchById(bookId);
         book.setUser(user);
-        bookService.updateBook(book);
-        return "borrowsuccess";
-    }
-
-    @GetMapping("/book/return/{bookId}")
-    public String returnBook(@PathVariable("bookId") Integer bookId, Integer studentId) {
-
-        Book book = bookService.bookById(bookId);
-        User tempUser = book.getUser();
-        tempUser.setBook(null);
-        book.setUser(null);
-        bookService.updateBook(book);
-        userService.updateStudent(tempUser);
-        return "returnsuccess";
+        bookService.update(book);
+        return "/action/borrow";
     }
 }

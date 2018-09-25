@@ -17,38 +17,48 @@ public class BookRepository {
     @PersistenceContext
     EntityManager bookEntityManager;
 
-    public List<Book> getAllBooks(){
+    public List<Book> list(){
         TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b", Book.class);
         return query.getResultList();
     }
 
-    public List<Book> bookByTitle(String title){
-        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title", Book.class);
-        query.setParameter("title", title);
+    public List<Book> borrowedList(){
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.user IS NOT NULL", Book.class);
         return query.getResultList();
     }
 
-    public List<Book> getAvailableBooksByTitle(String title){
-        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title AND b.student IS NULL", Book.class);
-        query.setParameter("title", title);
+    public List<Book> availableList(){
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.user IS NULL", Book.class);
         return query.getResultList();
     }
 
-    public List<Book> getBorrowedBooksByTitle(String title){
-        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title AND b.student IS NOT NULL", Book.class);
-        query.setParameter("title", title);
+    public List<Book> searchByWord(String word){
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :word OR b.author LIKE :word", Book.class);
+        query.setParameter("word", "%"+word+"%");
         return query.getResultList();
     }
 
-    public void addBook(Book book){
+    public List<Book> searchAvailableByWord(String word){
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :word OR b.author LIKE :word AND b.student IS NULL", Book.class);
+        query.setParameter("title", "%"+word+"%");
+        return query.getResultList();
+    }
+
+    public List<Book> searchBorrowedByWord(String word){
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :word OR b.author LIKE :word AND b.student IS NOT NULL", Book.class);
+        query.setParameter("title", "%"+word+"%");
+        return query.getResultList();
+    }
+
+    public void add(Book book){
         bookEntityManager.persist(book);
     }
 
-    public void updateBook(Book book) {
+    public void update(Book book) {
         bookEntityManager.merge(book);
     }
 
-    public Book bookById(Integer id) {
+    public Book searchById(Integer id) {
         return bookEntityManager.find(Book.class, id);
     }
 }

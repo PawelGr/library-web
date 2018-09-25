@@ -17,35 +17,31 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllStudents() {
-        return userRepository.getAllStudents();
+    public List<User> list() {
+        return userRepository.list();
     }
 
-    public List<User> studentSearch(String name) {
-        return userRepository.studentSearch(name);
+    public List<User> searchByWord(String word) {
+        return userRepository.searchByWord(word);
     }
 
-    public void addStudent(User user) {
+    public void add(User user) {
         // 1 opcja -> addressRepository.saveAddress(user.getAddress()); -> zapisywanie adresu
         // Address otrzymuje ID z bazy danych
-        userRepository.addStudent(user);
+        userRepository.add(user);
     }
 
-    public void updateStudent(User user) {
-        userRepository.updateStudent(user);
+    public void update(User user) {
+        userRepository.update(user);
     }
 
-    public User studentById(Integer studentId) {
-        return userRepository.studentById(studentId);
+    public User searchById(Integer id) {
+        return userRepository.searchById(id);
     }
 
-    public void deleteStudent(User user) {
-        User foundUser = userRepository.studentById(user.getId());
-        userRepository.deleteStudent(foundUser);
-    }
-
-    public void deleteStudentById(Integer studentId) {
-        userRepository.deleteStudentById(studentId);
+    public void delete(User user) {
+        User foundUser = userRepository.searchById(user.getId());
+        userRepository.delete(foundUser);
     }
 
 }

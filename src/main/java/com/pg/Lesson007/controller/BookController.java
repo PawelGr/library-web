@@ -3,13 +3,11 @@ package com.pg.Lesson007.controller;
 import com.pg.Lesson007.model.Book;
 import com.pg.Lesson007.model.User;
 import com.pg.Lesson007.service.BookService;
+import com.pg.Lesson007.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,92 +16,75 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
+    private UserService userService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, UserService userService) {
         this.bookService = bookService;
+        this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/allbooks")
+    @GetMapping("/book/search/list")
     public String list(Model model) {
-        model.addAttribute("allbooks", bookService.getAllBooks());
-        return "allbooks";
+        model.addAttribute("list", bookService.list());
+        return "/book/search/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/add/form")
+    @GetMapping("/book/add/form")
     public String form(Model model) {
         model.addAttribute("book", new Book());
-        return "addbookform";
+        return "book/add/form";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/book/add")
+    @PostMapping("/book/add")
     public String save(Book book) {
-        bookService.addBook(book);
-        return "redirect:/allbooks";
+        bookService.add(book);
+        return "redirect:/book/search/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/searchByTitle")
-    public String searchByTitle(@RequestParam("search") String title, Model model) {
-        List<Book> listOfBooks = bookService.bookByTitle(title);
-        model.addAttribute("allbooks", listOfBooks);
-        return "allbooks";
+    @GetMapping("/book/search/byword")
+    public String search(@RequestParam("search") String word, Model model) {
+        List<Book> listOfBooks = bookService.searchByWord(word);
+        model.addAttribute("list", listOfBooks);
+        return "/book/search/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/searchBorrowedByTitle")
-    public String searchBorrowedByTitle(@RequestParam("search") String title, Model model) {
-        List<Book> listOfBooks = bookService.bookByTitle(title);
-        model.addAttribute("borrowedbooks", listOfBooks);
-        return "borrowedbooks";
+    @GetMapping("/book/search/borrowed")
+    public String borrowedList(Model model) {
+        model.addAttribute("list", bookService.borrowedList());
+        return "/book/search/borrowed";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/searchAvaileableByTitle")
-    public String searchAvaileableByTitle(@RequestParam("search") String title, Model model) {
-        List<Book> listOfBooks = bookService.bookByTitle(title);
-        model.addAttribute("availeablebooks", listOfBooks);
-        return "availeablebooks";
+    @GetMapping("/book/search/borrowed/byword")
+    public String searchBorrowedByTitle(@RequestParam("search") String word, Model model) {
+        model.addAttribute("list", bookService.searchBorrowedByWord(word));
+        return "/book/search/borrowed";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/book/searchbookById/{bookId}")
-    public String searchById(@PathVariable("bookId") Integer bookId, Model model) {
-        Book book = bookService.bookById(bookId);
-        model.addAttribute("allbooks", book);
-        return "allbooks";
+    @GetMapping("/book/search/available")
+    public String availableBooksList(Model model) {
+        model.addAttribute("list", bookService.availableList());
+        return "/book/search/available";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/borrowedbooks")
-    public String borrowedBooks(Model model) {
-        List<Book> listOfBooks = bookService.getAllBooks();
-        List<Book> borrowedBooks = new ArrayList<>();
-        for (int b = 0; b < listOfBooks.size(); b++) {
-            Book temp = listOfBooks.get(b);
-            if (temp.getUser() != null) {
-                borrowedBooks.add(temp);
-                model.addAttribute("borrowedbooks", borrowedBooks);
-            }
-        }
-        return "borrowedbooks";
+    @GetMapping("/book/search/available/{userId}")
+    public String availableBooks(@PathVariable("userId") Integer userId, Model model) {
+        model.addAttribute("list", bookService.availableList());
+        model.addAttribute("userId", userId);
+        return "/book/search/available";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/availeablebooks/{studentId}")
-    public String availeableBooks(@PathVariable("studentId") Integer studentId, Model model) {
-        List<Book> listOfBooks = bookService.getAllBooks();
-        List<Book> availeableBooks = new ArrayList<>();
-        for (int b = 0; b < listOfBooks.size(); b++) {
-            Book temp = listOfBooks.get(b);
-            if (temp.getUser() == null) {
-                availeableBooks.add(temp);
-                model.addAttribute("availeablebooks", availeableBooks);
-            }
-        }
-        model.addAttribute("studentId", studentId);
-        return "availeablebooks";
+    @GetMapping("/book/search/available/byword")
+    public String searchAvaileableByTitle(@RequestParam("search") String word, Model model) {
+        model.addAttribute("list", bookService.searchAvailableByWord(word));
+        return "/book/search/available";
     }
 
     // NIE DZIAŁA !!!
 
-    @RequestMapping(method = RequestMethod.GET, value = "/borrowedbooksByStudentId/{studentId}")
+    @GetMapping("/borrowedbooksByStudentId/{studentId}")
     public String borrowedBooksByStudentId(@PathVariable("studentId") Integer studentId, Model model) {
-        List<Book> listOfBooks = bookService.getAllBooks();
+        List<Book> listOfBooks = bookService.list();
         List<Book> borrowedBooks = new ArrayList<>();
         for (int b = 0; b < listOfBooks.size(); b++) {
             Book tempBook = listOfBooks.get(b);
@@ -117,6 +98,15 @@ public class BookController {
             }
         }
         return "borrowedbooks";
+    }
+
+    @GetMapping("/book/return/{bookId}")
+    public String returnBook(@PathVariable("bookId") Integer bookId) {
+
+        Book book = bookService.searchById(bookId);
+        book.setUser(null);
+        bookService.update(book);
+        return "/action/return";
     }
 
 }

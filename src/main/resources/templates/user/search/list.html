@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista wszystkich studentów</title>
+    <title>Users list</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="localhost:2101"><b>Bibioteka</b></a>
+                <a class="navbar-brand" href="/"><b>LIBRARY</b></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -22,22 +22,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/allstudents">Lista studentów</a>
+                            <a class="nav-link" href="/user/search/list">Users list</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/allbooks">Lista wszystkich książek</a>
+                            <a class="nav-link" href="/book/search/list">Books list</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/add/form">Dodaj studenta</a>
+                            <a class="nav-link" href="/user/add/form">Add user</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/book/add/form">Dodaj książkę</a>
+                            <a class="nav-link" href="/book/add/form">Add book</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/borrowedbooks">Lista wypożyczonych książek</a>
+                            <a class="nav-link" href="/book/search/borrowed">Borrowed books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/availeablebooks">Lista dostępnych książek</a>
+                            <a class="nav-link" href="/book/search/available">Available books</a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
         <th>Street name</th>
         <th>Zip code</th>
     </tr>
-    <tr th:each="user : ${allstudents}">
+    <tr th:each="user : ${list}">
         <td th:text="${user.id}">Id</td>
         <td th:text="${user.name}">Name</td>
         <td th:text="${user.surname}">Surname</td>
@@ -77,18 +77,18 @@
 
         <td><form th:action="@{/user/delete}" th:object="${user}" method="post">
             <input type="hidden" th:value="${user.id}" name="id" />
-            <button type="submit">Usuń</button>
+            <button type="submit">Delete</button>
         </form></td>
-        <td><a th:href="@{/availeablebooks/{studentId}(studentId=${user.id})}">Wybierz książkę</a></td>
+        <td><a th:href="@{/book/search/available/{userId}(userId=${user.id})}">Choose book</a></td>
     </tr>
 </table>
 <hr width="20%" align="left" />
-<form th:object="${user}" th:action="@{user/search}" method="get">
-    <input type="text" name="search" id="search" placeholder="Wpisz słowo..." th:value="${search}"/>
+<form th:object="${user}" th:action="@{/user/search/byword}" method="get">
+    <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
     <input type="submit" value="Search"/>
 </form>
 <hr width="20%" align="left" />
-<a class="nav-link" href="user/add/form">Dodaj studenta</a>
+<a class="nav-link" href="/user/add/form">Add a new user</a>
 
 </body>
 </html>

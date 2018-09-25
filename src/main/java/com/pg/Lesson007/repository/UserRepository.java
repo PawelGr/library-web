@@ -16,34 +16,30 @@ public class UserRepository {
     @PersistenceContext
     EntityManager studentEntityManager;
 
-    public List<User> getAllStudents() {
-        TypedQuery<User> query = studentEntityManager.createQuery("SELECT s FROM User s", User.class);
+    public List<User> list() {
+        TypedQuery<User> query = studentEntityManager.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
     }
 
-    public List<User> studentSearch(String word) {
-        TypedQuery<User> query = studentEntityManager.createQuery("SELECT s FROM User s WHERE s.name LIKE %:word% OR s.surname LIKE %:word% OR s.course LIKE %:word%", User.class);
-        query.setParameter("word", word);
+    public List<User> searchByWord(String word) {
+        TypedQuery<User> query = studentEntityManager.createQuery("SELECT u FROM User u WHERE u.name LIKE :word OR u.surname LIKE :word OR u.course LIKE :word", User.class);
+        query.setParameter("word", "%"+word+"%");
         return query.getResultList();
     }
 
-    public void addStudent(User user) {
+    public void add(User user) {
         studentEntityManager.persist(user);
     }
 
-    public void updateStudent(User user) {
+    public void update(User user) {
         studentEntityManager.merge(user);
     }
 
-    public User studentById(Integer id) {
+    public User searchById(Integer id) {
         return studentEntityManager.find(User.class, id);
     }
 
-    public void deleteStudent(User user) {
+    public void delete(User user) {
         studentEntityManager.remove(user);
-    }
-
-    public void deleteStudentById(Integer studentId) {
-        studentEntityManager.remove(studentId);
     }
 }

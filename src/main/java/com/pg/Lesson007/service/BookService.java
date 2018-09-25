@@ -17,19 +17,35 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getAllBooks(){
-        return bookRepository.getAllBooks();
+    public List<Book> list(){
+        return bookRepository.list();
     }
 
-    public List<Book> bookByTitle (String title){
-        return bookRepository.bookByTitle(title);
+    public List<Book> borrowedList(){
+        return bookRepository.borrowedList();
     }
 
-    public void addBook (Book book){
-        bookRepository.addBook(book);
+    public List<Book> availableList(){
+        return bookRepository.availableList();
     }
 
-    public void updateBook(Book book) {bookRepository.updateBook(book);}
+    public List<Book> searchByWord (String word){
+        return bookRepository.searchByWord(word);
+    }
 
-    public Book bookById(Integer bookId) {return bookRepository.bookById(bookId);}
+    public List<Book> searchBorrowedByWord (String word){
+        return bookRepository.searchBorrowedByWord(word);
+    }
+
+    public List<Book> searchAvailableByWord (String word){
+        return bookRepository.searchAvailableByWord(word);
+    }
+
+    public void add (Book book){
+        bookRepository.add(book);
+    }
+
+    public void update(Book book) {bookRepository.update(book);}
+
+    public Book searchById(Integer bookId) {return bookRepository.searchById(bookId);}
 }
