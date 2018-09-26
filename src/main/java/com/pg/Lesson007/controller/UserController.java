@@ -1,5 +1,6 @@
 package com.pg.Lesson007.controller;
 
+import com.pg.Lesson007.model.Address;
 import com.pg.Lesson007.model.Book;
 import com.pg.Lesson007.model.User;
 import com.pg.Lesson007.service.BookService;
@@ -40,7 +41,6 @@ public class UserController {
 
     @PostMapping("/user/add")
     public String save(@Valid User user, BindingResult bindingResult, Model model) {
-        System.out.println(user);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "/user/add/form";

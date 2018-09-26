@@ -50,33 +50,41 @@
 <h3>Add a new user</h3>
 
 <form action="#" th:action="@{/user/add}" th:object="${user}" method="post">
-    <p>Name: <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')}? fieldError : fieldOk"  /></p>
+    <p>Name: <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')}? fieldError : fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
     </ul>
-    <p>Surname: <input type="text" th:field="*{surname}" th:class="${#fields.hasErrors('surname')}? fieldError: fieldOk" /></p>
+    <p>Surname: <input type="text" th:field="*{surname}" th:class="${#fields.hasErrors('surname')}? fieldError: fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('surname')}" th:text="${err}"  />
     </ul>
-    <p>Course: <input type="text" th:field="*{course}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk" /></p>
+    <p>E-mail: <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')}? fieldError: fieldOk"/></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('email')}" th:text="${err}"  />
+    </ul>
+    <p>Course: <input type="text" th:field="*{course}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('course')}" th:text="${err}" />
     </ul>
-
-
-    <p>City: <input type="text" th:field="*{address.city}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"  /></p>
-    <ul>
-        <li th:each="err : ${#fields.errors('address.city')}" th:text="${err}" />
-    </ul>
-
-    <p>Street: <input type="text" th:field="*{address.streetName}"  th:class="${#fields.hasErrors('course')}? fieldError: fieldOk" /></p>
+    <p>Street: <input type="text" th:field="*{address.streetName}"  th:class="${#fields.hasErrors('address.streetName')}? fieldError: fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('address.streetName')}" th:text="${err}" />
     </ul>
-
-    <p>ZipCode: <input type="text" th:field="*{address.zipCode}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"  /></p>
+    <p>Street number: <input type="text" th:field="*{address.streetNumber}"  th:class="${#fields.hasErrors('address.streetNumber')}? fieldError: fieldOk"/></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.streetNumber')}" th:text="${err}" />
+    </ul>
+    <p>Apartment number: <input type="text" th:field="*{address.apartmentNumber}"  th:class="${#fields.hasErrors('address.apartmentNumber')}? fieldError: fieldOk"/></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.apartmentNumber')}" th:text="${err}" />
+    </ul>
+    <p>ZipCode: <input type="text" th:field="*{address.zipCode}" th:class="${#fields.hasErrors('address.zipCode')}? fieldError: fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('address.zipCode')}" th:text="${err}" />
+    </ul>
+    <p>City: <input type="text" th:field="*{address.city}" th:class="${#fields.hasErrors('address.city')}? fieldError: fieldOk"/></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('address.city')}" th:text="${err}" />
     </ul>
 
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

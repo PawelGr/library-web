@@ -51,12 +51,18 @@
     <tr>
         <th>ID</th>
         <th>Title</th>
-        <th>Author</th>
+        <th>Author name</th>
+        <th>Author surname</th>
+        <th>ISBN</th>
+        <th>No. of pages</th>
     </tr>
     <tr th:each="book : ${list}">
         <td th:text="${book.id}">Id</td>
         <td th:text="${book.title}">Title</td>
-        <td th:text="${book.author}">Author</td>
+        <td th:text="${book.author.name}">Author name</td>
+        <td th:text="${book.author.surname}">Author surname</td>
+        <td th:text="${book.isbn}">ISBN</td>
+        <td th:text="${book.numberOfPages}">No. of pages</td>
     </tr>
 </table>
 <hr width="30%" align="left" />

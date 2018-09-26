@@ -1,9 +1,9 @@
 DONE 1. Refaktor kodu - przeniesienie mapowan ponad controller
 DONE 2. Uzycie GetMapping, PostMapping itp
 DONE 3. Wypozyczenia/zwroty jako HQL a nie pętli
-4. Aplikacja pozostałych uwag do kodu
-5. Wykorzystanie pol z encji Adres z user w formularzach i widokach (np apartmentNumber itp)
-6. Dodanie dodatkowych reguł walidacyjnych na apartmentNo, streetNo
+DONE 4. Aplikacja pozostałych uwag do kodu
+DONE 5. Wykorzystanie pol z encji Adres z user w formularzach i widokach (np apartmentNumber itp)
+DONE 6. Dodanie dodatkowych reguł walidacyjnych na apartmentNo, streetNo
 7. Dodanie checkboxów z kursami (encja Course) 
     - modyfikacja formularza 
     - stworzenie relacji z kursami jako @ManyToMany 
@@ -12,13 +12,15 @@ DONE 3. Wypozyczenia/zwroty jako HQL a nie pętli
     - widok do dodawania kursów
 DONE 8. Odpowiednie katalogi w templates + refactor (strukturyzacja)
 9. Tworzenie linków Thymeleaf 
-    - edycja usera
+????    - edycja usera
 DONE    - zwrot ksiazek
-    - inne..
 10. Zmiana pola author w ksiazce na obiekt Author + relacja + walidacje
 11. Rozszerzenie modelu ksiazki o nowe pola:
     - ISBN
     - ilosc stron
     - okladka twarda/miekka (boolean checbox)
     - dorobienie walidacji, szczegolnie do ISBN       
-12. Dodanie annotacji Email do usera.
+DONE 12. Dodanie annotacji Email do usera.
+
+DELETE User tylko gdy nie ma wypożyczeń!
+Jak wygląda zapytanie hql ksiązki po autorze i usera po adresie?

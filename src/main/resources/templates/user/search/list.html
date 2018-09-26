@@ -52,24 +52,34 @@
         <th>ID</th>
         <th>Name</th>
         <th>Surname</th>
+        <th>E-mail</th>
         <th>Course</th>
-        <th>City</th>
         <th>Street name</th>
+        <th>Street no.</th>
+        <th>Apartment no.</th>
         <th>Zip code</th>
+        <th>City</th>
+
     </tr>
     <tr th:each="user : ${list}">
         <td th:text="${user.id}">Id</td>
         <td th:text="${user.name}">Name</td>
         <td th:text="${user.surname}">Surname</td>
+        <td th:text="${user.email}">E-mail</td>
         <td th:text="${user.course}">Course</td>
 
         <div th:if="${user.address != null}">
-            <td th:text="${user.address.city}">City</td>
             <td th:text="${user.address.streetName}">Street name</td>
+            <td th:text="${user.address.streetNumber}">Street no.</td>
+            <td th:text="${user.address.apartmentNumber}">Apartment no.</td>
             <td th:text="${user.address.zipCode}">Zip code</td>
+            <td th:text="${user.address.city}">City</td>
         </div>
 
         <div th:if="${user.address == null}">
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
             <td>-</td>
             <td>-</td>
             <td>-</td>

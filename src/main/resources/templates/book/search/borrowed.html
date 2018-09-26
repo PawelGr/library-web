@@ -65,7 +65,7 @@
     </tr>
 </table>
 <hr width="30%" align="left" />
-<form th:object="${book}" th:action="@{/book/searchBorrowedByTitle}" method="get">
+<form th:object="${book}" th:action="@{/book/search/borrowed/byword}" method="get">
     <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
     <input type="submit" value="Search"/>
 </form>

@@ -7,8 +7,10 @@ import com.pg.Lesson007.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +39,14 @@ public class BookController {
     }
 
     @PostMapping("/book/add")
-    public String save(Book book) {
-        bookService.add(book);
-        return "redirect:/book/search/list";
+    public String save(@Valid Book book, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", book);
+            return "/book/add/form";
+        } else {
+            bookService.add(book);
+            return "redirect:/book/search/list";
+        }
     }
 
     @GetMapping("/book/search/byword")
@@ -78,26 +85,6 @@ public class BookController {
     public String searchAvaileableByTitle(@RequestParam("search") String word, Model model) {
         model.addAttribute("list", bookService.searchAvailableByWord(word));
         return "/book/search/available";
-    }
-
-    // NIE DZIAŁA !!!
-
-    @GetMapping("/borrowedbooksByStudentId/{studentId}")
-    public String borrowedBooksByStudentId(@PathVariable("studentId") Integer studentId, Model model) {
-        List<Book> listOfBooks = bookService.list();
-        List<Book> borrowedBooks = new ArrayList<>();
-        for (int b = 0; b < listOfBooks.size(); b++) {
-            Book tempBook = listOfBooks.get(b);
-            User tempUser = tempBook.getUser();
-            System.out.println(tempBook);
-            System.out.println(tempUser);
-            System.out.println(tempUser.getId());
-            if (tempUser.getId() == studentId) {
-                borrowedBooks.add(tempBook);
-                model.addAttribute("borrowedbooks", borrowedBooks);
-            }
-        }
-        return "borrowedbooks";
     }
 
     @GetMapping("/book/return/{bookId}")

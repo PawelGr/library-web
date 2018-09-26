@@ -22,24 +22,27 @@ public class User {
     @GeneratedValue
     private Integer id;
 
-    @NotNull(message = "Pole nie może być null")
-    @NotEmpty(message = "Pole nie może być puste")
-    @Length(min = 3, max = 10, message = "Długość pola min 3 znaki, max 10 znaków")
-    @Pattern(regexp = "[a-zA-Ząęźćżółń\\s]+", message = "Niepoprawna wartość pola")
+    @NotNull(message = "Name can't be null.")
+    @NotEmpty(message = "Name can't be empty.")
+    @Length(min = 3, max = 10, message = "Name must contain 3-10 characters.")
+    @Pattern(regexp = "[a-zA-Ząęźćżółń\\s]+", message = "Invalid value.")
     private String name;
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 3, max = 10, message = "Długość pola min 3 znaki, max 10 znaków")
-    @Pattern(regexp = "[a-zA-Ząęźćżółń\\s]+", message = "Niepoprawna wartość pola")
+    @NotNull(message = "Surname can't be null.")
+    @NotEmpty(message = "Surname can't be empty.")
+    @Length(min = 3, max = 15, message = "Surname must contain 3-15 characters.")
+    @Pattern(regexp = "[a-zA-Ząęźćżółń\\s]+", message = "Invalid value.")
     private String surname;
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 3, max = 10, message = "Długość pola min 3 znaki, max 10 znaków")
+    @NotNull(message = "Course can't be null.")
+    @NotEmpty(message = "Course can't be empty.")
+    @Length(min = 3, max = 10, message = "Course must contain 3-10 characters.")
     private String course;
 
-    private int age = 20;
+    @NotNull(message = "Course can't be null.")
+    @NotEmpty(message = "Course can't be empty.")
+    @Email(message = "Invalid format.")
+    private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Book> book;

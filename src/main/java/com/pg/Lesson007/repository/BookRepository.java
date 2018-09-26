@@ -39,14 +39,14 @@ public class BookRepository {
     }
 
     public List<Book> searchAvailableByWord(String word){
-        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :word OR b.author LIKE :word AND b.student IS NULL", Book.class);
-        query.setParameter("title", "%"+word+"%");
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE (b.title LIKE :word OR b.author LIKE :word) AND b.user IS NULL", Book.class);
+        query.setParameter("word", "%"+word+"%");
         return query.getResultList();
     }
 
     public List<Book> searchBorrowedByWord(String word){
-        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :word OR b.author LIKE :word AND b.student IS NOT NULL", Book.class);
-        query.setParameter("title", "%"+word+"%");
+        TypedQuery<Book> query = bookEntityManager.createQuery("SELECT b FROM Book b WHERE (b.title LIKE :word OR b.author LIKE :word) AND b.user IS NOT NULL", Book.class);
+        query.setParameter("word", "%"+word+"%");
         return query.getResultList();
     }
 
