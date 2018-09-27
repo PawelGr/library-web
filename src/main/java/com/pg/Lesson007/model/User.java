@@ -36,16 +36,14 @@ public class User {
 
     @NotNull(message = "Course can't be null.")
     @NotEmpty(message = "Course can't be empty.")
-    @Length(min = 3, max = 10, message = "Course must contain 3-10 characters.")
-    private String course;
-
-    @NotNull(message = "Course can't be null.")
-    @NotEmpty(message = "Course can't be empty.")
     @Email(message = "Invalid format.")
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Book> book;
+
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Course> course;
 
     @Valid
     @OneToOne(cascade = CascadeType.ALL)

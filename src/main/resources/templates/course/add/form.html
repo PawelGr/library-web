@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users list</title>
+    <title>Add a new course</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
 <div class="container">
@@ -53,56 +53,15 @@
     </div>
 </div>
 <hr width="100%" align="left" />
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>E-mail</th>
-        <th>Course</th>
-        <th>Street name</th>
-        <th>Street no.</th>
-        <th>Apartment no.</th>
-        <th>Zip code</th>
-        <th>City</th>
-    </tr>
-    </thead>
-    <tr th:each="user : ${list}">
-        <td th:text="${user.id}">Id</td>
-        <td th:text="${user.name}">Name</td>
-        <td th:text="${user.surname}">Surname</td>
-        <td th:text="${user.email}">E-mail</td>
-        <td th:text="${user.course}">Course</td>
+<h3>Add a new course</h3>
 
-        <div th:if="${user.address != null}">
-            <td th:text="${user.address.streetName}">Street name</td>
-            <td th:text="${user.address.streetNumber}">Street no.</td>
-            <td th:text="${user.address.apartmentNumber}">Apartment no.</td>
-            <td th:text="${user.address.zipCode}">Zip code</td>
-            <td th:text="${user.address.city}">City</td>
-        </div>
-
-        <div th:if="${user.address == null}">
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-        </div>
-
-        <td><form th:action="@{/user/delete}" th:object="${user}" method="post">
-            <input type="hidden" th:value="${user.id}" name="id" />
-            <a type="submit" class="btn btn-danger">Delete</a>
-        </form></td>
-        <td><a type="button" class="btn btn-success" th:href="@{/book/search/available/{userId}(userId=${user.id})}">Choose book</a></td>
-    </tr>
-</table>
-<hr width="20%" align="left" />
-<form th:object="${user}" th:action="@{/user/search/byword}" method="get">
-    <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
-    <input type="submit" class="btn btn-info" value="Search"/>
+<form action="#" th:action="@{/course/add}" th:object="${course}" method="post">
+    <p>Course: <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')}? fieldError : fieldOk"/></p>
+    <ul>
+        <li th:each="err : ${#fields.errors('name')}" th:text="${err}"  />
+    </ul>
+    <p><input type="submit" class="btn btn-success" value="Submit" /> <input type="reset" class="btn btn-danger" value="Reset" /></p>
 </form>
+<a class="nav-link" href="/course/search/list">Back to courses list</a>
 </body>
 </html>
