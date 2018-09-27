@@ -47,7 +47,8 @@
     </div>
 </div>
 <hr width="100%" align="left" />
-<table>
+<table class="table table-hover">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -59,8 +60,8 @@
         <th>Apartment no.</th>
         <th>Zip code</th>
         <th>City</th>
-
     </tr>
+    </thead>
     <tr th:each="user : ${list}">
         <td th:text="${user.id}">Id</td>
         <td th:text="${user.name}">Name</td>
@@ -87,18 +88,15 @@
 
         <td><form th:action="@{/user/delete}" th:object="${user}" method="post">
             <input type="hidden" th:value="${user.id}" name="id" />
-            <button type="submit">Delete</button>
+            <a type="submit" class="btn btn-danger">Delete</a>
         </form></td>
-        <td><a th:href="@{/book/search/available/{userId}(userId=${user.id})}">Choose book</a></td>
+        <td><a type="button" class="btn btn-success" th:href="@{/book/search/available/{userId}(userId=${user.id})}">Choose book</a></td>
     </tr>
 </table>
 <hr width="20%" align="left" />
 <form th:object="${user}" th:action="@{/user/search/byword}" method="get">
     <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
-    <input type="submit" value="Search"/>
+    <input type="submit" class="btn btn-info" value="Search"/>
 </form>
-<hr width="20%" align="left" />
-<a class="nav-link" href="/user/add/form">Add a new user</a>
-
 </body>
 </html>

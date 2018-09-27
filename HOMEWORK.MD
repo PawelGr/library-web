@@ -11,15 +11,15 @@ DONE 6. Dodanie dodatkowych reguł walidacyjnych na apartmentNo, streetNo
     - wybrać z widoku ID kursów, przekazać do kontrolera, wyszukać liste obiektów prezz CourseRepository i dopiąć do obiektu User na List<Course>
     - widok do dodawania kursów
 DONE 8. Odpowiednie katalogi w templates + refactor (strukturyzacja)
-9. Tworzenie linków Thymeleaf 
+DONE 9. Tworzenie linków Thymeleaf
 ????    - edycja usera
 DONE    - zwrot ksiazek
-10. Zmiana pola author w ksiazce na obiekt Author + relacja + walidacje
-11. Rozszerzenie modelu ksiazki o nowe pola:
-    - ISBN
-    - ilosc stron
-    - okladka twarda/miekka (boolean checbox)
-    - dorobienie walidacji, szczegolnie do ISBN       
+DONE 10. Zmiana pola author w ksiazce na obiekt Author + relacja + walidacje
+DONE 11. Rozszerzenie modelu ksiazki o nowe pola:
+DONE    - ISBN
+DONE    - ilosc stron
+DONE    - okladka twarda/miekka (boolean checbox)
+DONE    - dorobienie walidacji, szczegolnie do ISBN
 DONE 12. Dodanie annotacji Email do usera.
 
 DELETE User tylko gdy nie ma wypożyczeń!

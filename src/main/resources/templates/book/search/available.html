@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista wypożyczonych książek</title>
+    <title>List of available books</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -48,25 +48,34 @@
 </div>
 <hr width="100%" align="left" />
 
-<table>
+<table class="table table-hover">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Title</th>
-        <th>Author</th>
-        <th>Borrow</th>
+        <th>Author name</th>
+        <th>Author surname</th>
+        <th>ISBN</th>
+        <th>No. of pages</th>
+        <th>Hard cover</th>
     </tr>
+    </thead>
     <tr th:each="book : ${list}">
         <td th:text="${book.id}">Id</td>
         <td th:text="${book.title}">Title</td>
-        <td th:text="${book.author}">Author</td>
-        <td><a th:href="@{/user/borrow/book/{userId}/{bookId}(userId=${userId},bookId=${book.id})}">Borrow</a></td>
+        <td th:text="${book.author.name}">Author name</td>
+        <td th:text="${book.author.surname}">Author surname</td>
+        <td th:text="${book.isbn}">ISBN</td>
+        <td th:text="${book.numberOfPages}">No. of pages</td>
+        <td th:text="${book.hardCover}">Hard cover</td>
+        <td><a type="button" class="btn btn-success" th:href="@{/user/borrow/book/{userId}/{bookId}(userId=${userId},bookId=${book.id})}">Borrow</a></td>
         <td>
     </tr>
 </table>
 <hr width="30%" align="left" />
 <form th:object="${book}" th:action="@{/book/search/available/byword}" method="get">
     <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
-    <input type="submit" value="Search"/>
+    <input type="submit" class="btn btn-info"value="Search"/>
 </form>
 
 </body>

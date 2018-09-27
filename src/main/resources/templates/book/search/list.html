@@ -47,7 +47,8 @@
     </div>
 </div>
 <hr width="100%" align="left" />
-<table>
+<table class="table table-hover">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Title</th>
@@ -55,7 +56,10 @@
         <th>Author surname</th>
         <th>ISBN</th>
         <th>No. of pages</th>
+        <th>Hard cover</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="book : ${list}">
         <td th:text="${book.id}">Id</td>
         <td th:text="${book.title}">Title</td>
@@ -63,15 +67,14 @@
         <td th:text="${book.author.surname}">Author surname</td>
         <td th:text="${book.isbn}">ISBN</td>
         <td th:text="${book.numberOfPages}">No. of pages</td>
+        <td th:text="${book.hardCover}">Hard cover</td>
     </tr>
+    </tbody>
 </table>
 <hr width="30%" align="left" />
 <form th:object="${book}" th:action="@{/book/search/byword}" method="get">
     <input type="text" name="search" id="search" placeholder="Search..." th:value="${search}"/>
-    <input type="submit" value="Search"/>
+    <input type="submit" class="btn btn-info" value="Search"/>
 </form>
-<hr width="30%" align="left" />
-<a class="nav-link" href="/book/add/form">Add a new book</a>
-
 </body>
 </html>
