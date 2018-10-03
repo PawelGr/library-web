@@ -3,6 +3,7 @@ package com.pg.Lesson007.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.ISBN;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "book")
 public class Book {
 

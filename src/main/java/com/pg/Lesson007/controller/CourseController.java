@@ -44,4 +44,6 @@ public class CourseController {
             return "redirect:/course/search/list";
         }
     }
+
+
 }

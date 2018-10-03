@@ -1,8 +1,11 @@
 package com.pg.Lesson007.model;
 
+import com.pg.Lesson007.controller.CourseController;
+import com.pg.Lesson007.service.CourseService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -25,7 +28,7 @@ public class Course {
     @Pattern(regexp = "[a-zA-Z.,\\s]+", message = "Invalid value.")
     private String name;
 
-    @ManyToMany
-    private List<User> user;
+//    @ManyToMany
+//    private List<User> user;
 
 }

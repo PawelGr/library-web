@@ -67,10 +67,13 @@
     <p>E-mail: <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')}? fieldError: fieldOk"/></p>
     <ul>
         <li th:each="err : ${#fields.errors('email')}" th:text="${err}"  />
-    </ul>
-    <p>Course: <input type="text" th:field="*{course}" th:class="${#fields.hasErrors('course')}? fieldError: fieldOk"/></p>
-    <ul>
-        <li th:each="err : ${#fields.errors('course')}" th:text="${err}" />
+       <!-- <ul>
+            <li th:each="ty : ${/course/search/list}">
+                <input type="radio" th:field="*{course}" th:value="${ty}" />
+                <label th:for="${#ids.prev('course')}" th:text="#{${'seedstarter.course.' + ty}}">Courses</label>
+            </li>
+        </ul>
+        <li th:each="err : ${#fields.errors('course')}" th:text="${err}" />-->
     </ul>
     <p>Street: <input type="text" th:field="*{address.streetName}"  th:class="${#fields.hasErrors('address.streetName')}? fieldError: fieldOk"/></p>
     <ul>
