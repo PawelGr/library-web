@@ -1,9 +1,8 @@
-package com.pg.Lesson007.controller;
+package com.pg.library.controller;
 
-import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.model.User;
-import com.pg.Lesson007.service.BookService;
-import com.pg.Lesson007.service.UserService;
+import com.pg.library.model.Book;
+import com.pg.library.service.BookService;
+import com.pg.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +10,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class BookController {
 
     private BookService bookService;
-    private UserService userService;
 
     @Autowired
-    public BookController(BookService bookService, UserService userService) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
-        this.userService = userService;
     }
 
     @GetMapping("/book/search/list")
@@ -38,7 +34,7 @@ public class BookController {
         return "book/add/form";
     }
 
-    @PostMapping("/book/add")
+    @PostMapping("/book/save")
     public String save(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", book);

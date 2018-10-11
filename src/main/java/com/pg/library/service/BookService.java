@@ -1,7 +1,7 @@
-package com.pg.Lesson007.service;
+package com.pg.library.service;
 
-import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.repository.BookRepository;
+import com.pg.library.model.Book;
+import com.pg.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

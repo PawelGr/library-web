@@ -1,8 +1,7 @@
-package com.pg.Lesson007.controller;
+package com.pg.library.controller;
 
-import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.model.Course;
-import com.pg.Lesson007.service.CourseService;
+import com.pg.library.model.Course;
+import com.pg.library.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,17 +27,17 @@ public class CourseController {
         return "/course/search/list";
     }
 
-    @GetMapping("/course/add/form")
+    @GetMapping("/course/save/form")
     public String form(Model model) {
         model.addAttribute("course", new Course());
-        return "course/add/form";
+        return "course/save/form";
     }
 
-    @PostMapping("/course/add")
+    @PostMapping("/course/save")
     public String save(@Valid Course course, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("course", course);
-            return "/course/add/form";
+            return "/course/save/form";
         } else {
             courseService.add(course);
             return "redirect:/course/search/list";

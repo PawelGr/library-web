@@ -77,7 +77,7 @@
         <li th:each="err : ${#fields.errors('numberOfPages')}" th:text="${err}"  />
     </ul>
     <div>
-        <label th:for="${#ids.next('hardCover')}" th:text="#{hardCover}"></label>
+        <label>Cover</label>
         <input type="checkbox" th:field="*{hardCover}" />
     </div>
     <p><input type="submit" class="btn btn-success" value="Submit" /> <input type="reset" class="btn btn-danger" value="Reset" /></p>

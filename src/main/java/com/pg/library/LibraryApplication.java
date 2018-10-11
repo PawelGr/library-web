@@ -1,4 +1,4 @@
-package com.pg.Lesson007;
+package com.pg.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

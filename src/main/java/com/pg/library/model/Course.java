@@ -1,17 +1,13 @@
-package com.pg.Lesson007.model;
+package com.pg.library.model;
 
-import com.pg.Lesson007.controller.CourseController;
-import com.pg.Lesson007.service.CourseService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 
 @Data
 @ToString

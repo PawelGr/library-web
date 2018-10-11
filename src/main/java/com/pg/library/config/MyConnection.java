@@ -1,4 +1,4 @@
-package com.pg.Lesson007.config;
+package com.pg.library.config;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

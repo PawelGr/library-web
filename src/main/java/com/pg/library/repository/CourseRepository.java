@@ -1,7 +1,6 @@
-package com.pg.Lesson007.repository;
+package com.pg.library.repository;
 
-import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.model.Course;
+import com.pg.library.model.Course;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

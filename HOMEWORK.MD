@@ -1,4 +1,4 @@
-DONE 1. Refaktor kodu - przeniesienie mapowan ponad controller
+     1. Refaktor kodu - przeniesienie mapowan ponad controller
 DONE 2. Uzycie GetMapping, PostMapping itp
 DONE 3. Wypozyczenia/zwroty jako HQL a nie pętli
 DONE 4. Aplikacja pozostałych uwag do kodu
@@ -21,6 +21,3 @@ DONE    - ilosc stron
 DONE    - okladka twarda/miekka (boolean checbox)
 DONE    - dorobienie walidacji, szczegolnie do ISBN
 DONE 12. Dodanie annotacji Email do usera.
-
-DELETE User tylko gdy nie ma wypożyczeń!
-Jak wygląda zapytanie hql ksiązki po autorze i usera po adresie?

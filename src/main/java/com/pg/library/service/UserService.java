@@ -1,7 +1,7 @@
-package com.pg.Lesson007.service;
+package com.pg.library.service;
 
-import com.pg.Lesson007.model.User;
-import com.pg.Lesson007.repository.UserRepository;
+import com.pg.library.model.User;
+import com.pg.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +25,14 @@ public class UserService {
         return userRepository.searchByWord(word);
     }
 
-    public void add(User user) {
+    public void save(User user) {
         // 1 opcja -> addressRepository.saveAddress(user.getAddress()); -> zapisywanie adresu
-        // Address otrzymuje ID z bazy danych
-        userRepository.add(user);
-    }
-
-    public void update(User user) {
-        userRepository.update(user);
+        //        // Address otrzymuje ID z bazy danych
+        if (user.getId() == null || user.getId() == 0){
+            userRepository.add(user);}
+        else{
+            userRepository.update(user);
+        }
     }
 
     public User searchById(Integer id) {
@@ -41,7 +41,9 @@ public class UserService {
 
     public void delete(User user) {
         User foundUser = userRepository.searchById(user.getId());
-        userRepository.delete(foundUser);
+        if (foundUser.getBook().isEmpty()){
+            userRepository.delete(foundUser);
+        }
     }
 
 }

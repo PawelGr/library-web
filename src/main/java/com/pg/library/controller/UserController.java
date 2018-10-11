@@ -1,10 +1,9 @@
-package com.pg.Lesson007.controller;
+package com.pg.library.controller;
 
-import com.pg.Lesson007.model.Address;
-import com.pg.Lesson007.model.Book;
-import com.pg.Lesson007.model.User;
-import com.pg.Lesson007.service.BookService;
-import com.pg.Lesson007.service.UserService;
+import com.pg.library.model.Book;
+import com.pg.library.model.User;
+import com.pg.library.service.BookService;
+import com.pg.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +38,19 @@ public class UserController {
         return "/user/add/form";
     }
 
+    @GetMapping("/user/edit/{userId}")
+    public String form(Model model, @PathVariable("userId") Integer userId) {
+        model.addAttribute("user", userService.searchById(userId));
+        return "/user/add/form";
+    }
+
     @PostMapping("/user/add")
     public String save(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "/user/add/form";
         } else {
-            userService.add(user);
+            userService.save(user);
             return "redirect:/user/search/list";
         }
     }

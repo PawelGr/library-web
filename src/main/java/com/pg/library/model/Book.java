@@ -1,10 +1,9 @@
-package com.pg.Lesson007.model;
+package com.pg.library.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;

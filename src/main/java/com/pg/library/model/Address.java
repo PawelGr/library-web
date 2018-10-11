@@ -1,4 +1,4 @@
-package com.pg.Lesson007.model;
+package com.pg.library.model;
 
 import lombok.Data;
 import lombok.ToString;
@@ -33,7 +33,7 @@ public class Address {
 
     @NotNull(message = "Street number can't be null.")
     @NotEmpty(message = "Street number can't be empty.")
-    @Pattern(regexp = "[a-zA-Z0-9\\s]+", message = "Invalid value.")
+    @Pattern(regexp = "[a-zA-Z0-9/\\s]+", message = "Invalid value.")
     private String streetNumber;
 
     @Pattern(regexp = "[a-zA-Z0-9\\s]+", message = "Invalid value.")

@@ -1,4 +1,4 @@
-package com.pg.Lesson007.model;
+package com.pg.library.model;
 
 import lombok.Data;
 import lombok.ToString;
