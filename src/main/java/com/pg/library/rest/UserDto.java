@@ -12,14 +12,14 @@ public class UserDto {
 
     private String name;
     private String surname;
-    private String course;
+    private String email;
 
 
     public static UserDto fromUser(User user) {
         UserDto dto = new UserDto();
         dto.setName(user.getName());
         dto.setSurname(user.getSurname());
-        dto.setCourse(user.getCourse());
+        dto.setEmail(user.getEmail());
         return dto;
     }
 
@@ -27,7 +27,7 @@ public class UserDto {
         User u = new User();
         u.setName(dto.getName());
         u.setSurname(dto.getSurname());
-        u.setCourse(dto.getCourse());
+        u.setEmail(dto.getEmail());
         return u;
     }
 }

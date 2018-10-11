@@ -34,8 +34,8 @@ public class User {
     @Pattern(regexp = "[a-zA-Ząęźćżółń\\s]+", message = "Invalid value.")
     private String surname;
 
-    @NotNull(message = "Course can't be null.")
-    @NotEmpty(message = "Course can't be empty.")
+    @NotNull(message = "Email can't be null.")
+    @NotEmpty(message = "Email can't be empty.")
     @Email(message = "Invalid format.")
     private String email;
 
@@ -46,7 +46,7 @@ public class User {
 
 
 //    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-//    private List<Course> course;
+//    private List<Course> email;
 
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
