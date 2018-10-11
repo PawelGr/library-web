@@ -26,6 +26,7 @@ public class UserService {
     }
 
     public void save(User user) {
+        System.out.println(user);
         // 1 opcja -> addressRepository.saveAddress(user.getAddress()); -> zapisywanie adresu
         //        // Address otrzymuje ID z bazy danych
         if (user.getId() == null || user.getId() == 0){
@@ -39,10 +40,20 @@ public class UserService {
         return userRepository.searchById(id);
     }
 
-    public void delete(User user) {
+    public boolean delete(User user) {
         User foundUser = userRepository.searchById(user.getId());
         if (foundUser.getBook().isEmpty()){
             userRepository.delete(foundUser);
+            return true;
+        }
+        return false;
+    }
+
+    public void deleteById(Integer id) {
+        User user = searchById(id);
+        boolean delete = delete(user);
+        if (!delete) {
+            throw new RuntimeException("Couldn't delete user with id=" + id + ". User has some books borrowed.");
         }
     }
 
