@@ -26,9 +26,6 @@ public class UserService {
     }
 
     public void save(User user) {
-        System.out.println(user);
-        // 1 opcja -> addressRepository.saveAddress(user.getAddress()); -> zapisywanie adresu
-        //        // Address otrzymuje ID z bazy danych
         if (user.getId() == null || user.getId() == 0){
             userRepository.add(user);}
         else{

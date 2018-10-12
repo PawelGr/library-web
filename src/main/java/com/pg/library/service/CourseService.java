@@ -1,5 +1,6 @@
 package com.pg.library.service;
 
+import com.pg.library.model.Book;
 import com.pg.library.model.Course;
 import com.pg.library.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,11 @@ public class CourseService {
 
     public void add (Course course){
         courseRepository.add(course);
+    }
+
+    public Course searchById(Integer courseId) {return courseRepository.searchById(courseId);}
+
+    public void update(Course course) {
+        courseRepository.update(course);
     }
 }

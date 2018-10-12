@@ -89,14 +89,14 @@
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td>-</td>
         </div>
-
+        <td><a type="button" class="btn btn-warning" th:href="@{/user/edit/{userId}(userId=${user.id})}">Edit</a></td>
         <td><form th:action="@{/user/delete}" th:object="${user}" method="post">
             <input type="hidden" th:value="${user.id}" name="id" />
             <input type="submit" class="btn btn-danger" value="Delete"></input>
         </form></td>
         <td><a type="button" class="btn btn-success" th:href="@{/book/search/available/{userId}(userId=${user.id})}">Choose book</a></td>
+        <td><a type="button" class="btn btn-success" th:href="@{/course/search/list/{userId}(userId=${user.id})}">Add course</a></td>
     </tr>
 </table>
 <hr width="20%" align="left" />

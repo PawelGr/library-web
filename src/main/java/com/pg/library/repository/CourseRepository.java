@@ -1,5 +1,6 @@
 package com.pg.library.repository;
 
+import com.pg.library.model.Book;
 import com.pg.library.model.Course;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,14 @@ public class CourseRepository {
 
     public void add(Course course){
         courseEntityManager.persist(course);
+    }
+
+    public Course searchById(Integer id) {
+        return courseEntityManager.find(Course.class, id);
+    }
+
+    public void update(Course course) {
+        courseEntityManager.merge(course);
     }
 
 }

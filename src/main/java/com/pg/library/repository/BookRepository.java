@@ -60,4 +60,6 @@ public class BookRepository {
     public Book searchById(Integer id) {
         return bookEntityManager.find(Book.class, id);
     }
+
+    public void delete(Book book) {bookEntityManager.remove(book);}
 }

@@ -1,6 +1,7 @@
 package com.pg.library.service;
 
 import com.pg.library.model.Book;
+import com.pg.library.model.User;
 import com.pg.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,29 @@ public class BookService {
     public void update(Book book) {bookRepository.update(book);}
 
     public Book searchById(Integer bookId) {return bookRepository.searchById(bookId);}
+
+    public void save(Book book) {
+        if (book.getId() == null || book.getId() == 0){
+            bookRepository.add(book);}
+        else{
+            bookRepository.update(book);
+        }
+    }
+
+    public boolean delete(Book book) {
+        Book foundBook = bookRepository.searchById(book.getId());
+        if (foundBook.getUser() == null){
+            bookRepository.delete(foundBook);
+            return true;
+        }
+        return false;
+    }
+
+    public void deleteById(Integer id) {
+        Book book = searchById(id);
+        boolean delete = delete(book);
+        if (!delete) {
+            throw new RuntimeException("Couldn't delete book with id=" + id + ". Book is borrowed.");
+        }
+    }
 }

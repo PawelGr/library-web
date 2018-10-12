@@ -39,14 +39,13 @@ public class User {
     @Email(message = "Invalid format.")
     private String email;
 
-    private String course = "Java";
+//    private String course = "Java";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Book> book;
 
-
-//    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-//    private List<Course> email;
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Course> course;
 
     @Valid
     @OneToOne(cascade = CascadeType.ALL)

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter // getter + setter
+@Getter
 @Setter
 @NoArgsConstructor
 public class UserDto {

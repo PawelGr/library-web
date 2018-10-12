@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,17 +31,24 @@ public class CourseController {
         return "/course/search/list";
     }
 
-    @GetMapping("/save/form")
-    public String form(Model model) {
-        model.addAttribute("course", new Course());
-        return "course/save/form";
+    @GetMapping("/search/list/{userId}")
+    public String choosingList(@PathVariable("userId") Integer userId, Model model) {
+        model.addAttribute("list", courseService.list());
+        model.addAttribute("userId", userId);
+        return "/course/choose/form";
     }
 
-    @PostMapping("/save")
+    @GetMapping("/add/form")
+    public String form(Model model) {
+        model.addAttribute("course", new Course());
+        return "course/add/form";
+    }
+
+    @PostMapping("/add")
     public String save(@Valid Course course, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("course", course);
-            return "/course/save/form";
+            return "/course/add/form";
         } else {
             courseService.add(course);
             return "redirect:/course/search/list";
