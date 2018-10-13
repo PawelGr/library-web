@@ -86,7 +86,7 @@ public class UserController {
         return "/action/borrow";
     }
 
-    @GetMapping("/select/course/{userId}/{courseId}")
+    @GetMapping("/select/course/{userId}")
     public String selectCourse(@PathVariable("courseId") Integer courseId, @PathVariable("userId") Integer userId) {
 
         User user = userService.searchById(userId);

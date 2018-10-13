@@ -1,4 +1,4 @@
-     1. Refaktor kodu - przeniesienie mapowan ponad controller
+DO ZROBIENIA 1. Refaktor kodu - przeniesienie mapowan ponad controller
 DONE 2. Uzycie GetMapping, PostMapping itp
 DONE 3. Wypozyczenia/zwroty jako HQL a nie pętli
 DONE 4. Aplikacja pozostałych uwag do kodu

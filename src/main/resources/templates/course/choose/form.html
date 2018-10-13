@@ -53,13 +53,14 @@
     </div>
 </div>
 <hr width="100%" align="left" />
+
 <h3>Choose courses</h3>
-    <ul>
+    <form>
         <li th:each="course : ${list}">
             <input type="checkbox" th:field="*{list}" th:value="${course.id}" />
             <label th:text="${course.name}" ></label>
         </li>
-        <td><input type="submit" href="@{/select/course/{userId}/{courseId}(userId=${userId},courseId=${course.id})}" value="Choose"/></td>
-    </ul>
+        <input type="submit" href="/user/select/course/{userId}(userId=${user.id})" class="btn btn-success" value="Choose" /> <input type="reset" class="btn btn-danger" value="Reset" />
+    </form>
 </body>
 </html>
