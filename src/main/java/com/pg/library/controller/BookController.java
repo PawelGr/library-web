@@ -1,15 +1,21 @@
 package com.pg.library.controller;
 
 import com.pg.library.model.Book;
+import com.pg.library.rest.client.ExchangeRatesTable;
+import com.pg.library.rest.client.Rate;
 import com.pg.library.service.BookService;
 import com.pg.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -17,11 +23,34 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, RestTemplate restTemplate) {
         this.bookService = bookService;
+        this.restTemplate = restTemplate;
     }
+
+    private Double getEuroRate() {
+        URI uri = URI.create("http://api.nbp.pl/api/exchangerates/tables/a/");
+        ResponseEntity<ExchangeRatesTable[]> response = restTemplate.getForEntity(uri, ExchangeRatesTable[].class);
+
+        for (ExchangeRatesTable e : response.getBody()) {
+            System.out.println(e);
+
+            List<Rate> rates = e.getRates();
+
+            for (Rate r : rates) {
+
+                if (r.getCode().equals("EUR")) {
+                    return r.getMid();
+                }
+            }
+
+        }
+        return null;
+    }
+
 
     @GetMapping("/search/list")
     public String list(Model model) {
@@ -31,6 +60,8 @@ public class BookController {
 
     @GetMapping("/add/form")
     public String form(Model model) {
+        Double euroRate = getEuroRate();
+        model.addAttribute("euroRate", euroRate);
         model.addAttribute("book", new Book());
         return "book/add/form";
     }

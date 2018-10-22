@@ -55,6 +55,8 @@
 <hr width="100%" align="left" />
 <h3>Add a new book</h3>
 
+1 EUR = <span th:text="${euroRate}"></span>
+
 <form action="#" th:action="@{/book/add}" th:object="${book}" method="post">
     <p>Title: <input type="text" th:field="*{title}" th:class="${#fields.hasErrors('title')}? fieldError : fieldOk"/></p>
     <ul>
