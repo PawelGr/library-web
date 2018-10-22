@@ -55,12 +55,12 @@
 <hr width="100%" align="left" />
 
 <h3>Choose courses</h3>
-    <form>
+    <form th:action="@{/user/select/course/{userId}(userId=${userId})}" method="post">
         <li th:each="course : ${list}">
-            <input type="checkbox" th:field="*{list}" th:value="${course.id}" />
+            <input type="checkbox" th:value="${course.id}" />
             <label th:text="${course.name}" ></label>
         </li>
-        <input type="submit" href="/user/select/course/{userId}(userId=${user.id})" class="btn btn-success" value="Choose" /> <input type="reset" class="btn btn-danger" value="Reset" />
+        <input type="submit" class="btn btn-success" value="Choose" /> <input type="reset" class="btn btn-danger" value="Reset" />
     </form>
 </body>
 </html>

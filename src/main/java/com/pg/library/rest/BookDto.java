@@ -24,7 +24,7 @@ public class BookDto {
         dto.setIsbn(book.getIsbn());
         dto.setNumberOfPages(book.getNumberOfPages());
         dto.setHardCover(book.isHardCover());
-        dto.setAuthor(author);
+        dto.setAuthor(author); //to powinno przyjmować autor Dto
         return dto;
     }
 

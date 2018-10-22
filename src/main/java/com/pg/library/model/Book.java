@@ -30,6 +30,7 @@ public class Book {
     @NotNull(message = "ISBN can't be null.")
     @NotEmpty(message = "ISBN can't be empty.")
     @ISBN(message = "Invalid value.")
+    @Column(unique = true)
     private String isbn;
 
     @NotNull(message = "No. of pages can't be null.")

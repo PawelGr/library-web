@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -86,13 +87,14 @@ public class UserController {
         return "/action/borrow";
     }
 
-    @GetMapping("/select/course/{userId}")
-    public String selectCourse(@PathVariable("courseId") Integer courseId, @PathVariable("userId") Integer userId) {
+    @PostMapping("/select/course/{userId}")
+    public String selectCourse(ArrayList<Integer> courseIds, @PathVariable("userId") Integer userId) {
 
         User user = userService.searchById(userId);
-        Course course = courseService.searchById(courseId);
-        course.getUser().add(user);
-        courseService.update(course);
+//        Course course = courseService.searchById(courseId);
+//        course.getUser().add(user);
+//        courseService.update(course);
+        System.out.println(courseIds);
         return "redirect:/user/search/list";
     }
 }
