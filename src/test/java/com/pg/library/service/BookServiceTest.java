@@ -41,6 +41,83 @@ public class BookServiceTest {
     }
 
     @Test
+    public void shouldBorrowedList() throws Exception {
+
+        List<Book> list = new ArrayList<Book>();
+        list.add(new Book());
+        list.add(new Book());
+
+        when(repository.borrowedList()).thenReturn(list);
+
+        List<Book> serviceList = service.borrowedList();
+        assertEquals(2, serviceList.size());
+    }
+
+    @Test
+    public void shouldAvailableList() throws Exception {
+
+        List<Book> list = new ArrayList<Book>();
+        list.add(new Book());
+
+        when(repository.availableList()).thenReturn(list);
+
+        List<Book> serviceList = service.availableList();
+        assertEquals(1, serviceList.size());
+    }
+
+    @Test
+    public void shouldSearchByWord() throws Exception {
+
+        List<Book> list = new ArrayList<Book>();
+        Book book1 = new Book();
+        book1.setTitle("Java. Podstawy. Wydanie X.");
+        Book book2 = new Book();
+        book2.setTitle("Java. Zaawansowane kodowanie.");
+        list.add(book1);
+        list.add(book2);
+
+
+        when(repository.searchByWord("Java")).thenReturn(list);
+
+        List<Book> serviceList = service.searchByWord("Java");
+        assertEquals(2, serviceList.size());
+    }
+
+    @Test
+    public void shouldSearchBorrowedByWord() throws Exception {
+
+        List<Book> list = new ArrayList<Book>();
+        Book book = new Book();
+        book.setTitle("Python. Podstawy.");
+        list.add(book);
+
+        when(repository.searchBorrowedByWord("Podstawy")).thenReturn(list);
+
+        List<Book> serviceList = service.searchBorrowedByWord("Podstawy");
+        assertEquals(1, serviceList.size());
+    }
+
+    @Test
+    public void shouldSearchAvailableByWord() throws Exception {
+
+        List<Book> list = new ArrayList<Book>();
+        Book book1 = new Book();
+        book1.setTitle("Java. Podstawy. Wydanie X.");
+        Book book2 = new Book();
+        book2.setTitle("Java. Zaawansowane kodowanie.");
+        book2.setUser(null);
+        list.add(book1);
+        list.add(book2);
+
+        when(repository.searchAvailableByWord("kodowanie")).thenReturn(list);
+
+        List<Book> serviceList = service.searchAvailableByWord("kodowanie");
+        assertEquals(1, serviceList.size());
+
+        //!! NIE DZIAŁA !!
+    }
+
+    @Test
     public void shouldDeleteBook() {
 
         Book bookToDelete = new Book();
