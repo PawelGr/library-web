@@ -76,7 +76,6 @@ public class BookServiceTest {
         list.add(book1);
         list.add(book2);
 
-
         when(repository.searchByWord("Java")).thenReturn(list);
 
         List<Book> serviceList = service.searchByWord("Java");
@@ -103,18 +102,31 @@ public class BookServiceTest {
         List<Book> list = new ArrayList<Book>();
         Book book1 = new Book();
         book1.setTitle("Java. Podstawy. Wydanie X.");
+        book1.setUser(null);
         Book book2 = new Book();
         book2.setTitle("Java. Zaawansowane kodowanie.");
         book2.setUser(null);
         list.add(book1);
         list.add(book2);
 
-        when(repository.searchAvailableByWord("kodowanie")).thenReturn(list);
+        when(repository.searchAvailableByWord("Java")).thenReturn(list);
 
-        List<Book> serviceList = service.searchAvailableByWord("kodowanie");
-        assertEquals(1, serviceList.size());
+        List<Book> serviceList = service.searchAvailableByWord("Java");
+        assertEquals(2, serviceList.size());
 
-        //!! NIE DZIAŁA !!
+    }
+
+    @Test
+    public void shouldSaveExistingBook () throws Exception {
+
+        Book bookToSave = new Book();
+        bookToSave.setId(7);
+        bookToSave.setTitle("Programowanie Python");
+
+        repository.update(bookToSave);
+
+        verify(repository, times(1)).update(bookToSave);
+
     }
 
     @Test
