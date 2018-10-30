@@ -2,6 +2,8 @@ package com.pg.library.controller;
 
 import com.pg.library.model.Book;
 import com.pg.library.rest.client.ExchangeRatesTable;
+import com.pg.library.rest.client.Forecast.Forecast;
+import com.pg.library.rest.client.Forecast.Weather;
 import com.pg.library.rest.client.Rate;
 import com.pg.library.service.BookService;
 import com.pg.library.service.UserService;
@@ -51,6 +53,14 @@ public class BookController {
         return null;
     }
 
+    private Forecast getWarsawWeatherForecast() {
+        URI uri2 = URI.create("http://api.openweathermap.org/data/2.5/weather?q=Warsaw,PL&units=metric&APPID=d584923e4718b6dcaf40c1de837ffc2b");
+        ResponseEntity<Forecast> response = restTemplate.getForEntity(uri2, Forecast.class);
+        Forecast warsawWeatherForecast = response.getBody();
+
+        return warsawWeatherForecast;
+    }
+
 
     @GetMapping("/search/list")
     public String list(Model model) {
@@ -61,10 +71,54 @@ public class BookController {
     @GetMapping("/add/form")
     public String form(Model model) {
         Double euroRate = getEuroRate();
+        Forecast warsawWeatherForecast = getWarsawWeatherForecast();
+        String city = warsawWeatherForecast.getName();
+        Double latitude = warsawWeatherForecast.getCoord().getLat();
+        Double longitude = warsawWeatherForecast.getCoord().getLon();
+//        Weather tab[] = warsawWeatherForecast.getWeather();
+//        Weather description = tab[2];
+        double temperature = warsawWeatherForecast.getMain().getTemp();
+        double pressure = warsawWeatherForecast.getMain().getPressure();
+        double humidity = warsawWeatherForecast.getMain().getHumidity();
+        double windSpeed = warsawWeatherForecast.getWind().getSpeed();
+        model.addAttribute("city", city);
+        model.addAttribute("latitude", latitude);
+        model.addAttribute("longitude", longitude);
+//        model.addAttribute("description", description);
+        model.addAttribute("temperature", temperature);
+        model.addAttribute("pressure", pressure);
+        model.addAttribute("humidity", humidity);
+        model.addAttribute("windSpeed", windSpeed);
         model.addAttribute("euroRate", euroRate);
         model.addAttribute("book", new Book());
         return "book/add/form";
     }
+
+    @GetMapping("/")
+    public String weather(Model model) {
+        Double euroRate = getEuroRate();
+        Forecast warsawWeatherForecast = getWarsawWeatherForecast();
+        String city = warsawWeatherForecast.getName();
+        Double latitude = warsawWeatherForecast.getCoord().getLat();
+        Double longitude = warsawWeatherForecast.getCoord().getLon();
+//        Weather tab[] = warsawWeatherForecast.getWeather();
+//        Weather description = tab[2];
+        double temperature = warsawWeatherForecast.getMain().getTemp();
+        double pressure = warsawWeatherForecast.getMain().getPressure();
+        double humidity = warsawWeatherForecast.getMain().getHumidity();
+        double windSpeed = warsawWeatherForecast.getWind().getSpeed();
+        model.addAttribute("city", city);
+        model.addAttribute("latitude", latitude);
+        model.addAttribute("longitude", longitude);
+//        model.addAttribute("description", description);
+        model.addAttribute("temperature", temperature);
+        model.addAttribute("pressure", pressure);
+        model.addAttribute("humidity", humidity);
+        model.addAttribute("windSpeed", windSpeed);
+        model.addAttribute("euroRate", euroRate);
+        return "action/warsaw";
+    }
+
 
     @PostMapping("/add")
     public String save(@Valid Book book, BindingResult bindingResult, Model model) {
