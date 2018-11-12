@@ -75,8 +75,9 @@ public class BookController {
         String city = warsawWeatherForecast.getName();
         Double latitude = warsawWeatherForecast.getCoord().getLat();
         Double longitude = warsawWeatherForecast.getCoord().getLon();
-//        Weather tab[] = warsawWeatherForecast.getWeather();
-//        Weather description = tab[2];
+        List<Weather> weatherList = warsawWeatherForecast.getWeather();
+        System.out.println(weatherList);
+        Weather weather = weatherList.get(0);
         double temperature = warsawWeatherForecast.getMain().getTemp();
         double pressure = warsawWeatherForecast.getMain().getPressure();
         double humidity = warsawWeatherForecast.getMain().getHumidity();
@@ -84,7 +85,7 @@ public class BookController {
         model.addAttribute("city", city);
         model.addAttribute("latitude", latitude);
         model.addAttribute("longitude", longitude);
-//        model.addAttribute("description", description);
+        model.addAttribute("description", weather.getDescription());
         model.addAttribute("temperature", temperature);
         model.addAttribute("pressure", pressure);
         model.addAttribute("humidity", humidity);
@@ -94,30 +95,31 @@ public class BookController {
         return "book/add/form";
     }
 
-    @GetMapping("/")
-    public String weather(Model model) {
-        Double euroRate = getEuroRate();
-        Forecast warsawWeatherForecast = getWarsawWeatherForecast();
-        String city = warsawWeatherForecast.getName();
-        Double latitude = warsawWeatherForecast.getCoord().getLat();
-        Double longitude = warsawWeatherForecast.getCoord().getLon();
-//        Weather tab[] = warsawWeatherForecast.getWeather();
-//        Weather description = tab[2];
-        double temperature = warsawWeatherForecast.getMain().getTemp();
-        double pressure = warsawWeatherForecast.getMain().getPressure();
-        double humidity = warsawWeatherForecast.getMain().getHumidity();
-        double windSpeed = warsawWeatherForecast.getWind().getSpeed();
-        model.addAttribute("city", city);
-        model.addAttribute("latitude", latitude);
-        model.addAttribute("longitude", longitude);
-//        model.addAttribute("description", description);
-        model.addAttribute("temperature", temperature);
-        model.addAttribute("pressure", pressure);
-        model.addAttribute("humidity", humidity);
-        model.addAttribute("windSpeed", windSpeed);
-        model.addAttribute("euroRate", euroRate);
-        return "action/warsaw";
-    }
+//    @GetMapping("/warsawWeather")
+//    public String weather(Model model) {
+//        Double euroRate = getEuroRate();
+//        Forecast warsawWeatherForecast = getWarsawWeatherForecast();
+//        String city = warsawWeatherForecast.getName();
+//        Double latitude = warsawWeatherForecast.getCoord().getLat();
+//        Double longitude = warsawWeatherForecast.getCoord().getLon();
+//        List<Weather> weatherList = warsawWeatherForecast.getWeather();
+//        System.out.println(w);
+//        Weather weather = weatherList.get(0);
+//        double temperature = warsawWeatherForecast.getMain().getTemp();
+//        double pressure = warsawWeatherForecast.getMain().getPressure();
+//        double humidity = warsawWeatherForecast.getMain().getHumidity();
+//        double windSpeed = warsawWeatherForecast.getWind().getSpeed();
+//        model.addAttribute("city", city);
+//        model.addAttribute("latitude", latitude);
+//        model.addAttribute("longitude", longitude);
+//        model.addAttribute("description", weather.getDescription());
+//        model.addAttribute("temperature", temperature);
+//        model.addAttribute("pressure", pressure);
+//        model.addAttribute("humidity", humidity);
+//        model.addAttribute("windSpeed", windSpeed);
+//        model.addAttribute("euroRate", euroRate);
+//        return "/action/warsaw";
+//    }
 
 
     @PostMapping("/add")

@@ -61,7 +61,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shoudSaveExistingUser() {
+    public void shoudUpdateExistingUser() {
 
         User userToSave = new User();
         userToSave.setId(7);
@@ -76,13 +76,10 @@ public class UserServiceTest {
     @Test
     public void shouldSearchById() {
 
-        List<User> list = new ArrayList<>();
         User user1 = new User();
         user1.setId(3);
         User user2 = new User();
         user2.setId(4);
-        list.add(user1);
-        list.add(user2);
 
         when(repository.searchById(3)).thenReturn(user1);
 
@@ -127,8 +124,5 @@ public class UserServiceTest {
 
         verify(repository,times(0)).delete(userToDelete);
     }
-
-
-
 
 }

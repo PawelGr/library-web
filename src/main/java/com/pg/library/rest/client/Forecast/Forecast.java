@@ -4,12 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Data
 @ToString
 public class Forecast {
     private Coord coord;
-    private Weather weather[];
+    private List<Weather> weather;
     private String base;
     private Main main;
     private Integer visibility;

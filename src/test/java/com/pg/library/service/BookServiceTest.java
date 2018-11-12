@@ -3,7 +3,9 @@ package com.pg.library.service;
 import com.pg.library.model.Book;
 import com.pg.library.model.User;
 import com.pg.library.repository.BookRepository;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,6 +21,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookServiceTest {
+
+    @Rule
+    public ExpectedException exc = ExpectedException.none();
 
     @Mock
     private BookRepository repository;
@@ -54,7 +59,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldAvailableList() throws Exception {
+    public void shouldReturnAvailableList() throws Exception {
 
         List<Book> list = new ArrayList<Book>();
         list.add(new Book());
@@ -117,7 +122,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void shouldSaveExistingBook () throws Exception {
+    public void shouldUpdateExistingBook () throws Exception {
 
         Book bookToSave = new Book();
         bookToSave.setId(7);
@@ -144,13 +149,17 @@ public class BookServiceTest {
         verify(repository, times(1)).delete(bookToDelete);
     }
 
-    @Test(expected = RuntimeException.class)
+
+    @Test
     public void shouldNotDeleteBorrowedBook() {
 
         Book bookToDelete = new Book();
         bookToDelete.setId(5);
         bookToDelete.setTitle("XYZ");
         bookToDelete.setUser(new User());
+
+        exc.expect(RuntimeException.class);
+        exc.expectMessage("Couldn't delete book with id=" + bookToDelete.getId() + ". Book is borrowed.");
 
         when(repository.searchById(5)).thenReturn(bookToDelete);
 
