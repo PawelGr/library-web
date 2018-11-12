@@ -28,14 +28,14 @@ public class CourseController {
     @GetMapping("/search/list")
     public String list(Model model) {
         model.addAttribute("list", courseService.list());
-        return "/course/search/list";
+        return "course/search/list";
     }
 
     @GetMapping("/search/list/{userId}")
     public String choosingList(@PathVariable("userId") Integer userId, Model model) {
         model.addAttribute("list", courseService.list());
         model.addAttribute("userId", userId);
-        return "/course/choose/form";
+        return "course/choose/form";
     }
 
     @GetMapping("/add/form")
@@ -48,7 +48,7 @@ public class CourseController {
     public String save(@Valid Course course, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("course", course);
-            return "/course/add/form";
+            return "course/add/form";
         } else {
             courseService.add(course);
             return "redirect:/course/search/list";
