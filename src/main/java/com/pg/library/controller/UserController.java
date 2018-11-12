@@ -35,26 +35,26 @@ public class UserController {
     public String list(Model model) {
         List<User> listOfUsers = userService.list();
         model.addAttribute("list", listOfUsers);
-        return "/user/search/list";
+        return "user/search/list";
     }
 
     @GetMapping("/add/form")
     public String form(Model model) {
         model.addAttribute("user", new User());
-        return "/user/add/form";
+        return "user/add/form";
     }
 
     @GetMapping("/edit/{userId}")
     public String form(Model model, @PathVariable("userId") Integer userId) {
         model.addAttribute("user", userService.searchById(userId));
-        return "/user/add/form";
+        return "user/add/form";
     }
 
     @PostMapping("/add")
     public String save(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "/user/add/form";
+            return "user/add/form";
         } else {
             userService.save(user);
             return "redirect:/user/search/list";
@@ -71,9 +71,9 @@ public class UserController {
     @PostMapping("/delete")
     public String user(@ModelAttribute("user") User user) {
         if (userService.delete(user) == true){
-        return "/action/delete";}
+        return "action/delete";}
         else{
-            return "/action/delete_failed";
+            return "action/delete_failed";
         }
     }
 
@@ -84,7 +84,7 @@ public class UserController {
         Book book = bookService.searchById(bookId);
         book.setUser(user);
         bookService.update(book);
-        return "/action/borrow";
+        return "action/borrow";
     }
 
     @PostMapping("/select/course/{userId}")

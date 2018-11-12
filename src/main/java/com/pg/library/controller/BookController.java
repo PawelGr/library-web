@@ -65,7 +65,7 @@ public class BookController {
     @GetMapping("/search/list")
     public String list(Model model) {
         model.addAttribute("list", bookService.list());
-        return "/book/search/list";
+        return "book/search/list";
     }
 
     @GetMapping("/add/form")
@@ -126,7 +126,7 @@ public class BookController {
     public String save(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", book);
-            return "/book/add/form";
+            return "book/add/form";
         } else {
             bookService.add(book);
             return "redirect:/book/search/list";
@@ -137,38 +137,38 @@ public class BookController {
     public String search(@RequestParam("search") String word, Model model) {
         List<Book> listOfBooks = bookService.searchByWord(word);
         model.addAttribute("list", listOfBooks);
-        return "/book/search/list";
+        return "book/search/list";
     }
 
     @GetMapping("/search/borrowed")
     public String borrowedList(Model model) {
         model.addAttribute("list", bookService.borrowedList());
-        return "/book/search/borrowed";
+        return "book/search/borrowed";
     }
 
     @GetMapping("/search/borrowed/byword")
     public String searchBorrowedByTitle(@RequestParam("search") String word, Model model) {
         model.addAttribute("list", bookService.searchBorrowedByWord(word));
-        return "/book/search/borrowed";
+        return "book/search/borrowed";
     }
 
     @GetMapping("/search/available")
     public String availableBooksList(Model model) {
         model.addAttribute("list", bookService.availableList());
-        return "/book/search/available";
+        return "book/search/available";
     }
 
     @GetMapping("/search/available/{userId}")
     public String availableBooks(@PathVariable("userId") Integer userId, Model model) {
         model.addAttribute("list", bookService.availableList());
         model.addAttribute("userId", userId);
-        return "/book/search/available";
+        return "book/search/available";
     }
 
     @GetMapping("/search/available/byword")
     public String searchAvaileableByTitle(@RequestParam("search") String word, Model model) {
         model.addAttribute("list", bookService.searchAvailableByWord(word));
-        return "/book/search/available";
+        return "book/search/available";
     }
 
     @GetMapping("/return/{bookId}")
@@ -177,7 +177,7 @@ public class BookController {
         Book book = bookService.searchById(bookId);
         book.setUser(null);
         bookService.update(book);
-        return "/action/return";
+        return "action/return";
     }
 
 }
